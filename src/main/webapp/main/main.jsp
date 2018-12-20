@@ -15,26 +15,28 @@
             $.get("${pageContext.request.contextPath}/ta/parent", function (result) {
                 for (var i = 0; i < result.length; i++) {
                     $("#aa").accordion("add", {
-                        title: result[i].title,
+                        title: result[i].text,
                         iconCls: "icon-ok",
-                        content: function () {
-                            $.get("${pageContext.request.contextPath}/ta/second", "p_id=" + result[i].id, function (result1) {
-                                var x;
-                                for (var j = 0; j < result1.length; j++) {
-
-                                    console.log(result1[j].title);
-                                    x = result1[j].title;
-                                }
-                            });
+                        content: "<div><ul id='tt1" + result[i].id + "'></ul></div>"
+                    });
+                    $("#tt1" + result[i].id).tree({
+                        url: "${pageContext.request.contextPath}/ta/second",
+                        queryParams: {"p_id": result[i].id},
+                        onClick: function (node) {
+                            if ($("#tt").tabs("exists", node.text)) {
+                                $("#tt").tabs("select", node.text);
+                            } else {
+                                $("#tt").tabs("add", {
+                                    title: node.text,
+                                    href: "${pageContext.request.contextPath}/view/" + node.href
+                                });
+                            }
                         }
                     });
                 }
             });
         });
 
-        function second() {
-
-        }
     </script>
 
 </head>
