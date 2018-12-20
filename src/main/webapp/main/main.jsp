@@ -16,8 +16,8 @@
                 for (var i = 0; i < result.length; i++) {
                     $("#aa").accordion("add", {
                         title: result[i].text,
-                        iconCls: "icon-ok",
-                        content: "<div><ul id='tt1" + result[i].id + "'></ul></div>"
+                        iconCls: result[i].iconCls,
+                        content: "<div><ul id='tt1" + result[i].id + "'></ul></div>",
                     });
                     $("#tt1" + result[i].id).tree({
                         url: "${pageContext.request.contextPath}/ta/second",
