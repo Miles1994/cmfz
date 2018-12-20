@@ -11,9 +11,19 @@ import org.apache.ibatis.annotations.Param;
  * @Date 2018-12-20--14:38
  */
 public interface BannerService {
+    //分页查询
+
     PageDto queryByPage(@Param("curPage") Integer curPage, @Param("pageSize") Integer pageSize);
 
-    Banner queryById(Integer id);
+    //修改状态
 
     void update(Banner banner);
+
+    //删除一行
+
+    void delete(Banner banner);
+
+    //添加
+
+    void add(Banner banner);
 }

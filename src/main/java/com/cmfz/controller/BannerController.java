@@ -6,8 +6,10 @@ import com.cmfz.service.BannerService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
 
 /**
  * @author Administrator
@@ -30,18 +32,35 @@ public class BannerController {
         return pageDto;
     }
 
-    //查一个
-
-    @RequestMapping("queryOne")
-    @ResponseBody
-    public Banner queryOne(Integer id) {
-        return bannerService.queryById(id);
-    }
 
     //修改
 
     @RequestMapping("update")
-    public void update(Banner banner) {
+    public String update(Banner banner) {
         bannerService.update(banner);
+        return "";
+    }
+
+    //删除
+
+    @RequestMapping("delete")
+    public String delete(Banner banner) {
+        bannerService.delete(banner);
+        return "";
+    }
+
+    //添加
+
+    @RequestMapping("add")
+    public String add(Banner banner, MultipartFile file) throws Exception {
+        String fileName = file.getOriginalFilename();
+        banner.setImg_path(fileName);
+        banner.setStatus("N");
+        bannerService.add(banner);
+        // 文件上传后的路径
+        String filePath = "E:\\MyIdeaProject\\ssmcmfz\\src\\main\\webapp\\image";
+        File dest = new File(filePath + "/" + fileName);
+        file.transferTo(dest);
+        return "";
     }
 }

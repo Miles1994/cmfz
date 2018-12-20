@@ -1,12 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/IconExtension.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/icon.css">
 <script type="text/javascript">
     $(function () {
         //工具栏按钮
         var toolbar = [{
             iconCls: 'icon-add',
             text: "添加",
-            handler: function () {
-                alert('编辑按钮')
+            onClick: function () {
+                $("#dialog").dialog("open");
             }
         }, '-', {
             text: "修改",
@@ -26,26 +29,38 @@
             }
         }, '-', {
             text: "删除",
-            iconCls: 'icon-remove',
+            iconCls: 'icon-reload',
             handler: function () {
-                alert('帮助按钮')
+                var i = $("#dg").edatagrid("getSelected");
+                if (i != null) {
+                    $("#dg").edatagrid("destroyRow");
+                }
             }
         }, '-', {
             text: "保存",
             iconCls: 'icon-save',
             handler: function () {
                 $("#dg").edatagrid("saveRow")
-
+            }
+        }, '-', {
+            text: "刷新",
+            iconCls: 'icon-20130406015709810_easyicon_net_16',
+            handler: function () {
+                $("#dg").edatagrid("load")
             }
         }];
 
-
+        //初始化可编辑数据表
         $("#dg").edatagrid({
-            method: "GET",
             fitColumns: true,
             fit: true,
-            updateUrl: "${pageContext.request.contextPath}/ban/update",
+            singleSelect: false,
+            pagination: true,
+            pageList: [1, 3, 5, 7, 9],
+            pageSize: 3,
             url: "${pageContext.request.contextPath}/ban/queryByPage",
+            updateUrl: "${pageContext.request.contextPath}/ban/update",
+            destroyUrl: "${pageContext.request.contextPath}/ban/delete",
             columns: [[
                 {
                     field: "name", title: "名称",
@@ -59,14 +74,12 @@
                     field: "pub_date", title: "时间", width: 200
                 }
             ]],
-            pagination: true,
-            pageList: [1, 3, 5, 7, 9],
-            pageSize: 3,
+
             toolbar: toolbar,
             view: detailview,
             detailFormatter: function (rowIndex, rowData) {
                 return '<table><tr>' +
-                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/img/' + rowData.img_path + '" style="height:50px;"></td>' +
+                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/image/' + rowData.img_path + '" style="height:50px;"></td>' +
                     '<td style="border:0">' +
                     '<p>描述: ' + rowData.description + '</p>' +
                     '<p>日期: ' + rowData.pub_date + '</p>' +
@@ -74,9 +87,22 @@
                     '</tr></table>';
             }
         });
+        //初始化添加对话框
+        $("#dialog").dialog({
+            title: "添加图片",
+            width: 400,
+            hetght: 300,
+            closed: true,
+            href: "${pageContext.request.contextPath}/dialog.jsp",
+            modal: true,
+            cache: false
+        });
+
+
     });
 
 </script>
 
 
 <table id="dg"></table>
+<div id="dialog"></div>
