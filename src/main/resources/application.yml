@@ -22,3 +22,5 @@ spring:
     encoding:
       charset: UTF-8
       force: true
+mybatis:
+  mapper-locations: classpath:/mapper/*Mapper.xml

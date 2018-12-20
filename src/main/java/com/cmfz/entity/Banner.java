@@ -1,8 +1,10 @@
 package com.cmfz.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
@@ -11,27 +13,22 @@ import java.util.Date;
 
 /**
  * @author Administrator
- * @Title: User
+ * @Title: Banner
  * @ProjectName demo
- * @Date 2018-12-19--19:24
+ * @Date 2018-12-20--14:13
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
+public class Banner implements Serializable {
     @Id
     @KeySql(useGeneratedKeys = true)
     private Integer id;
-    private String phone;
-    private String password;
-    private String salt;
-    private String sign;
-    private String head_pic;
     private String name;
-    private String dharma;
-    private Integer sex;
-    private String province;
-    private String city;
-    private Integer status;
-    private Date reg_date;
+    private String img_path;
+    private String status;
+    @JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date pub_date;
+    private String description;
 }

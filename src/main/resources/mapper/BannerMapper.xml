@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cmfz.mapper.BannerMapper">
+    <!--查总行数-->
+    <select id="totalCount" resultType="int">
+        select count(*)
+        from banner
+    </select>
+
+    <!--查询当前数据行-->
+    <select id="queryByPage" resultType="com.cmfz.entity.Banner" parameterType="int">
+        select *
+        from banner
+        limit ${(curPage-1)*pageSize},${pageSize}
+    </select>
+</mapper>

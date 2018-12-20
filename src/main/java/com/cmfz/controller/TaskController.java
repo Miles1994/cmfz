@@ -34,7 +34,6 @@ public class TaskController {
     @RequestMapping("second")
     @ResponseBody
     public List<Task> querySecond(Integer p_id) {
-        System.out.println(p_id);
         List<Task> tasks = taskService.querySecond(p_id);
         return tasks;
     }
