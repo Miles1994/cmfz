@@ -1,23 +1,27 @@
 package com.cmfz;
 
-import com.cmfz.entity.PageDto;
-import com.cmfz.service.BannerService;
+import com.cmfz.entity.Album;
+import com.cmfz.mapper.AlbumMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ssmcmfzApplicationTests {
     @Resource
-    BannerService bannerService;
+    AlbumMapper albumMapper;
     @Test
     public void contextLoads() {
-        PageDto pageDto = bannerService.queryByPage(1, 3);
-        System.out.println(pageDto);
+        List<Album> albums = albumMapper.queryAlbum();
+        System.out.println(albums);
+        for (Album album : albums) {
+            System.out.println(album);
+        }
     }
 
 }

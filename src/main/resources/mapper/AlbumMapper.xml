@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--suppress ALL -->
+<mapper namespace="com.cmfz.mapper.AlbumMapper">
+    <resultMap id="a1" type="com.cmfz.entity.Album">
+        <id column="aid" property="id"/>
+        <result column="atitle" property="title"/>
+        <result column="acount" property="count"/>
+        <result column="acover_img" property="cover_img"/>
+        <result column="ascore" property="score"/>
+        <result column="aauthor" property="author"/>
+        <result column="avoicer" property="voicer"/>
+        <result column="aintroduction" property="introduction"/>
+        <result column="apub_date" property="pub_date"/>
+        <collection property="children" ofType="com.cmfz.entity.Chapter">
+            <id column="cid" property="id"/>
+            <result column="ctitle" property="title"/>
+            <result column="csize" property="size"/>
+            <result column="cduration" property="duration"/>
+            <result column="curl" property="url"/>
+            <result column="cdate" property="upload_date"/>
+            <result column="caid" property="aid"/>
+        </collection>
+    </resultMap>
+    <!--查所有及章节-->
+    <select id="queryAlbum" resultType="com.cmfz.entity.Album" resultMap="a1">
+        select a.id aid , a.title atitle,a.count acount,a.score ascore,a.author aauthor,a.voicer avoicer,a.introduction aintroduction,a.pub_date apub_date,a.cover_img acover_img,
+        c.id cid , c.title ctitle , c.duration cduration , c.aid caid , c.upload_date cdate , c.url curl,c.size csize
+        from
+        album a
+        left join chapter c
+        on a.id = c.aid
+    </select>
+</mapper>
