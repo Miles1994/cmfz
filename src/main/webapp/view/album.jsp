@@ -40,7 +40,6 @@
         handler: function () {
             //获取选中行
             var row = $("#album").treegrid("getSelected");
-            console.log(row);
             if (row != null) {
                 //打开添加音频对话框
                 $("#voice").dialog({
@@ -59,8 +58,7 @@
         text: "音频下载",
         iconCls: 'icon-save',
         handler: function () {
-            $("#dg").edatagrid("saveRow")
-
+            var row = $("#album").treegrid("getSelected");
         }
     }];
     $(function () {
@@ -69,9 +67,17 @@
             idField: "id",
             treeField: "title",
             columns: [[
-                {field: 'title', title: '名字', width: 60},
+                {
+                    field: 'title', title: '名字', width: 60, formatter: function (value, row, index) {
+                        if (row.url != null) {
+                            return "<a href='${pageContext.request.contextPath}/ch/download?name=" + row.url + "'>" + row.title + "</a>"
+                        } else {
+                            return row.title;
+                        }
+                    }
+                },
                 {field: 'duration', title: '时长', width: 80},
-                {field: 'size', title: '大小', width: 80}
+                {field: 'size', title: '大小(kb)', width: 80}
             ]],
             fit: true,
             fitColumns: true,
