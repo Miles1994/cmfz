@@ -59,6 +59,14 @@
         iconCls: 'icon-save',
         handler: function () {
             var row = $("#album").treegrid("getSelected");
+            location.href = "${pageContext.request.contextPath}/ch/download?name=" + row.url;
+        }
+    }, '-', {
+        text: "导出数据",
+        iconCls: 'icon-print',
+        handler: function () {
+
+            location.href = "${pageContext.request.contextPath}/alu/export";
         }
     }];
     $(function () {
@@ -67,21 +75,13 @@
             idField: "id",
             treeField: "title",
             columns: [[
-                {
-                    field: 'title', title: '名字', width: 60, formatter: function (value, row, index) {
-                        if (row.url != null) {
-                            return "<a href='${pageContext.request.contextPath}/ch/download?name=" + row.url + "'>" + row.title + "</a>"
-                        } else {
-                            return row.title;
-                        }
-                    }
-                },
+                {field: 'title', title: '名字', width: 60},
                 {field: 'duration', title: '时长', width: 80},
                 {field: 'size', title: '大小(kb)', width: 80}
             ]],
             fit: true,
             fitColumns: true,
-            toolbar: toolbar,
+            toolbar: toolbar
         });
 
 

@@ -4,6 +4,8 @@ import com.cmfz.entity.Banner;
 import com.cmfz.entity.PageDto;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author Administrator
  * @Title: BannerService
@@ -26,4 +28,8 @@ public interface BannerService {
     //添加
 
     void add(Banner banner);
+
+    //查所有
+
+    List<Banner> queryAll();
 }

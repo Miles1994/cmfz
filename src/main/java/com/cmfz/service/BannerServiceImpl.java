@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Administrator
@@ -55,5 +56,11 @@ public class BannerServiceImpl implements BannerService {
     public void add(Banner banner) {
 
         bannerMapper.insertSelective(banner);
+    }
+
+    @Override
+    public List<Banner> queryAll() {
+        List<Banner> banners = bannerMapper.selectAll();
+        return banners;
     }
 }

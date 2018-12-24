@@ -48,6 +48,12 @@
             handler: function () {
                 $("#dg").edatagrid("load")
             }
+        }, '-', {
+            text: "导出数据",
+            iconCls: 'icon-print',
+            handler: function () {
+                location.href = "${pageContext.request.contextPath}/ban/export"
+            }
         }];
 
         //初始化可编辑数据表
