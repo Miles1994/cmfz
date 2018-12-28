@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cmfz.mapper.UserMapper">
+    <!--地图分布查询-->
+    <select id="queryByProvince" resultType="com.cmfz.entity.UserMap">
+        select count(*) value , province name from ch_user where sex = #{sex} GROUP BY province
+    </select>
+
+    <!--注册时间数据表查询-->
+
+    <select id="queryByDate" resultType="Integer">
+        <![CDATA[
+          select count(*) value from ch_user where DATEDIFF(NOW(),reg_date)<#{date} and sex = #{sex}
+        ]]>
+    </select>
+</mapper>

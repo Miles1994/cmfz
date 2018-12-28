@@ -1,11 +1,13 @@
 package com.cmfz.service;
 
 import com.cmfz.entity.User;
+import com.cmfz.entity.UserMap;
 import com.cmfz.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Administrator
@@ -36,5 +38,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void insertUser(User user) {
         userMapper.insert(user);
+    }
+
+    @Override
+    public List<UserMap> queryByProvince(String sex) {
+        List<UserMap> userMaps = userMapper.queryByProvince(sex);
+        return userMaps;
+    }
+
+    @Override
+    public Integer queryByDate(Integer date, String sex) {
+        Integer integer = userMapper.queryByDate(date, sex);
+        return integer;
     }
 }
