@@ -33,7 +33,6 @@ public class ChapterController {
     @RequestMapping("addChapter")
     @ResponseBody
     public String addChapter(Chapter chapter, MultipartFile file) throws Exception {
-        System.out.println(chapter);
         chapterService.insertChapter(chapter, file);
         return "";
     }

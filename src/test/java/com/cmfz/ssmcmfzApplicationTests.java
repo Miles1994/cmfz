@@ -1,6 +1,9 @@
 package com.cmfz;
 
 
+import com.cmfz.entity.Admin;
+import com.cmfz.entity.Permission;
+import com.cmfz.mapper.AdminMapper;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 
@@ -12,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.util.List;
 
 
 @RunWith(SpringRunner.class)
@@ -19,6 +23,8 @@ import java.io.*;
 public class ssmcmfzApplicationTests {
     @Resource
     private FastFileStorageClient storageClient;
+    @Resource
+    private AdminMapper adminMapper;
 
     @Test
     public void testPoi() throws FileNotFoundException {
@@ -53,5 +59,11 @@ public class ssmcmfzApplicationTests {
         GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io","BC-e7f30516a3d540fbae7de5a03c654ee4");
         goEasy.publish("goEasy","This is GoEasy");
     }
+
+    @Test
+    public void testAdmin(){
+
+    }
 }
+
 

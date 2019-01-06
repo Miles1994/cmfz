@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--suppress ALL -->
+<mapper namespace="com.cmfz.mapper.AdminMapper">
+    <resultMap id="a1" type="com.cmfz.entity.Admin">
+        <id column="aid" property="id"/>
+        <result column="aname" property="name"/>
+        <result column="apassword" property="password"/>
+        <result column="asalt" property="salt"/>
+        <result column="arole" property="role"/>
+        <collection property="permissions" ofType="com.cmfz.entity.Permission">
+            <result column="p_permission" property="permission"/>
+        </collection>
+    </resultMap>
+    <!--查用户信息及权限-->
+    <select id="queryAllByPermissionOfRole" resultType="com.cmfz.entity.Admin" resultMap="a1" parameterType="String">
+        select a.id aid , a.name aname , a.password apassword , a.salt asalt , a.role arole , pp.permission p_permission
+        from admin a
+        left join permission p
+        on  a.role = p.role
+        left join permission pp
+        on  p.id = pp.r_id
+        where a.name = #{name}
+    </select>
+</mapper>
